@@ -1,0 +1,20 @@
+# This file is released under the CC0 1.0 Universal (CC0 1.0) Public Domain Dedication.
+# See the LICENSE.txt file or https://creativecommons.org/publicdomain/zero/1.0/ for details.
+
+version: '3.8'
+services:
+  db:
+    image: sqlserver-with-tsqlt
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        sqlserver_tag: ${SQLSERVER_TAG:-latest}
+        tsqlt_version: ${TSQLT_VERSION:-latest}
+    ports:
+      - 1433:1433
+    volumes:
+      - ./bind:/bind
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=yourStrong(!)Password
